@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script
+  src="jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="loader.js"></script>
+   
+  
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="bootstrap.min.css" />
+<script src="bootstrap.min.js"></script>
+    <script src="dat.gui.js"></script>
+    <style>
+
+
+     .dg button,.dg input,.dg select,.dg textarea {
+    height: 23px;
+}
+       
+
+    </style>
+<script type="text/javascript">
+   
+    var opcionesGoogleChart = {
+        pieHole: 0.2,
+        Crear: function () { AplicarOpciones(); },
+        is3D: false,
+        fontSize: 14,
+        pieSliceTextStyle: "#FFFFFF",
+        sliceVisibilityThreshold: false,
+        bgroundColor: "#FFFFFF",
+        legendPosition: 'right',
+        legendTextStyleColor: "#000000",
+        legendTextStylefontSize: 14,
+        tooltipTextStyleColor: "#000000",
+        tooltipTextStyleShow: false,
+        Color1: "#3366CC",
+        Color2: "#DC3912",
+        Color3: "#FF9900",
+        Color4: "#109618",
+        Color5: "#990099",
+        
+    };
+
+    window.onload = function () {
+        var gui = new dat.GUI();
+        gui.add(opcionesGoogleChart, 'pieHole', 0, 1);
+        gui.add(opcionesGoogleChart, 'is3D');
+        gui.add(opcionesGoogleChart, 'fontSize', 2, 40);
+        gui.addColor(opcionesGoogleChart, 'pieSliceTextStyle');
+        gui.addColor(opcionesGoogleChart, 'bgroundColor');
+
+
+        gui.add(opcionesGoogleChart, 'legendPosition', ['bottom', 'labeled', 'left', 'none', 'right', 'top']);
+        gui.addColor(opcionesGoogleChart, 'legendTextStyleColor');
+        gui.add(opcionesGoogleChart, 'legendTextStylefontSize', 2, 40);
+
+        gui.addColor(opcionesGoogleChart, 'tooltipTextStyleColor');
+        gui.add(opcionesGoogleChart, 'tooltipTextStyleShow');
+
+        gui.addColor(opcionesGoogleChart, 'Color1');
+        gui.addColor(opcionesGoogleChart, 'Color2');
+        gui.addColor(opcionesGoogleChart, 'Color3');
+        gui.addColor(opcionesGoogleChart, 'Color4');
+        gui.addColor(opcionesGoogleChart, 'Color5');
+
+        gui.add(opcionesGoogleChart, 'sliceVisibilityThreshold');
+        gui.add(opcionesGoogleChart, 'Crear').name('Aplicar cambios');
+
+    };
+    
+    
+</script>
+
+
+    <style type="text/css">
+        #Salida {
+            width: 564px;
+            height: 572px;
+        }
+        
+    </style>
+
+
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="container-fluid">
+        <style>
+            #Banner{
+             text-align: center;   
+                
+            }
+        </style>
+        <div id="Banner">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- Header -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-4331617637495482"
+     data-ad-slot="2764029251"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+     
+        <div class="panel panel-primary" style="width: 800px;">
+            <div class="panel-heading">Gráfica final</div>
+  <div class="panel-body"> 
+      <input id="Button1" type="button" class="btn btn-info"  value="Preview" onclick="AplicarOpciones()" />
+      <input id="Button2" type="button" class="btn btn-success"  value="Generar Código" onclick="GenerarCodigo()" /> 
+      <div class="panel-body"> <br /><br />
+    <div id="piechart" style="width: 700px; height: 500px;"></div>
+  </div>
+  <div class="panel-footer"></div>
+</div>
+    
+     
+        
+
+        <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Código generado</h4>
+      </div>
+      <div class="modal-body">
+        <textarea id="Salida"></textarea><br />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+       
+    </div>
+        <script type="text/javascript">
+            var options;
+            var chart;
+            var data;
+            google.charts.load('current', { 'packages': ['corechart'], 'language': 'es' });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+
+               data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'],['Work',11],['Eat',2],['Commute',2],['Watch TV',2],['Sleep',7]]);
+
+                options = {
+                    title: 'My Daily Activities',
+
+                   
+                };
+
+
+                chart = new google.visualization.PieChart(document.getElementById('piechart'));
+           
+                
+
+                chart.draw(data, options);
+            }
+            function AplicarOpciones() {
+                options.backgroundColor = { fill: opcionesGoogleChart.bgroundColor },
+                options.is3D = opcionesGoogleChart.is3D;
+                options.pieHole = opcionesGoogleChart.pieHole;
+                options.fontSize = opcionesGoogleChart.fontSize;
+                options.pieSliceTextStyle = {color:opcionesGoogleChart.pieSliceTextStyle}
+                options.sliceVisibilityThreshold = opcionesGoogleChart.sliceVisibilityThreshold;
+                options.legend = {
+                    position: opcionesGoogleChart.legendPosition,
+                    textStyle: { color: opcionesGoogleChart.legendTextStyleColor, fontSize: opcionesGoogleChart.legendTextStylefontSize }
+                };
+                options.tooltip = { textStyle: { color: opcionesGoogleChart.tooltipTextStyleColor }, showColorCode: opcionesGoogleChart.tooltipTextStyleShow }
+                options.colors = [
+                    opcionesGoogleChart.Color1,
+                    opcionesGoogleChart.Color2,
+                    opcionesGoogleChart.Color3,
+                    opcionesGoogleChart.Color4,
+                    opcionesGoogleChart.Color5
+                ];
+
+                
+
+                strSalida = '<!DOCTYPE html>\n';
+                strSalida += '<html xmlns="http://www.w3.org/1999/xhtml">\n<head>';
+                strSalida +='<title>Gráficos con Google Chart Visita:develoteca.com</title>\n';
+                strSalida += '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"><\/script>\n';
+                strSalida +='<script type="text/javascript">\n';
+                strSalida += "google.charts.load('current', { 'packages': ['corechart'] });\n";
+                strSalida += "google.charts.setOnLoadCallback(drawChart);\n";
+                strSalida += "function drawChart() {\n";
+                strSalida += "var data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'],['Work',11]\n,";
+                strSalida += "['Eat',2],['Commute',2],['Watch TV',2],['Sleep',7]]);\n\n";
+
+                strSalida += "var options =" + JSON.stringify(options) + ";";
+
+                strSalida += "\n\nvar chart = new google.visualization.PieChart(document.getElementById('piechart'));\nchart.draw(data, options);";
+                strSalida += "\n}\n<\/script>\n</head>";
+                strSalida += '\n<body><form >';
+                strSalida += '\n<div id="piechart" style="width: 900px; height: 500px;"></div>';
+                strSalida += '\n</form>\n</body>\n</html>';
+                document.getElementById('Salida').innerHTML = strSalida;
+                chart.draw(data, options);
+
+            }
+            function GenerarCodigo() {
+              
+                options.backgroundColor = { fill: opcionesGoogleChart.bgroundColor },
+                    options.is3D = opcionesGoogleChart.is3D;
+                    options.pieHole = opcionesGoogleChart.pieHole;
+                    options.fontSize = opcionesGoogleChart.fontSize;
+                    options.pieSliceTextStyle = { color: opcionesGoogleChart.pieSliceTextStyle }
+                    options.sliceVisibilityThreshold = opcionesGoogleChart.sliceVisibilityThreshold;
+                    options.legend = {
+                        position: opcionesGoogleChart.legendPosition,
+                        textStyle: { color: opcionesGoogleChart.legendTextStyleColor, fontSize: opcionesGoogleChart.legendTextStylefontSize }
+                    };
+                    options.tooltip = { textStyle: { color: opcionesGoogleChart.tooltipTextStyleColor }, showColorCode: opcionesGoogleChart.tooltipTextStyleShow }
+                    options.colors = [
+                        opcionesGoogleChart.Color1,
+                        opcionesGoogleChart.Color2,
+                        opcionesGoogleChart.Color3,
+                        opcionesGoogleChart.Color4,
+                        opcionesGoogleChart.Color5
+                    ];
+
+
+
+                    strSalida = '<!DOCTYPE html>\n';
+                    strSalida += '<html xmlns="http://www.w3.org/1999/xhtml">\n<head>';
+                    strSalida += '<title>Gráficos con Google Chart Visita:develoteca.com</title>\n';
+                    strSalida += '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"><\/script>\n';
+                    strSalida += '<script type="text/javascript">\n';
+                    strSalida += "google.charts.load('current', { 'packages': ['corechart'] });\n";
+                    strSalida += "google.charts.setOnLoadCallback(drawChart);\n";
+                    strSalida += "function drawChart() {\n";
+                    strSalida += "var data = google.visualization.arrayToDataTable([['Task', 'Hours per Day'],['Work',11]\n,";
+                    strSalida += "['Eat',2],['Commute',2],['Watch TV',2],['Sleep',7]]);\n\n";
+
+                    strSalida += "var options =" + JSON.stringify(options) + ";";
+
+                    strSalida += "\n\nvar chart = new google.visualization.PieChart(document.getElementById('piechart'));\nchart.draw(data, options);";
+                    strSalida += "\n}\n<\/script>\n</head>";
+                    strSalida += '\n<body><form >';
+                    strSalida += '\n<div id="piechart" style="width: 900px; height: 500px;"></div>';
+                    strSalida += '\n</form>\n</body>\n</html>';
+                    document.getElementById('Salida').innerHTML = strSalida;
+                    $("#myModal").modal('show');
+                    chart.draw(data, options);
+
+          
+
+            }
+    </script>
+        
+    </form>
+
+     
+</body>
+</html>
